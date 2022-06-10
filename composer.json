@@ -1,0 +1,21 @@
+{
+    "name": "jhernandes/brazilian-address",
+    "description": "Brazilian Address Component",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jhernandes\\BrazilianAddress\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Joao Hernandes",
+            "email": "jhernandes@isoftsolutions.com.br"
+        }
+    ],
+    "require": {}
+}
