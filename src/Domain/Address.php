@@ -56,8 +56,8 @@ class Address implements \JsonSerializable
     {
         return [
             'street' => $this->street,
-            'number' => $this->number,
-            'complement' => $this->complement,
+            'number' => isset($this->number) ?: '',
+            'complement' => isset($this->complement) ?: '',
             'district' => $this->district,
             'city' => $this->city,
             'state' => $this->state,
@@ -73,8 +73,10 @@ class Address implements \JsonSerializable
 
     private function setNumber(string $number): void
     {
-        $this->ensureIsValid($number);
-        $this->number = substr($number, 0, 10);
+        if (!empty($number)) {
+            $this->ensureIsValid($number);
+            $this->number = substr($number, 0, 10);
+        }
     }
 
     private function setDistrict(string $district): void
@@ -85,13 +87,10 @@ class Address implements \JsonSerializable
 
     private function setComplement(string $complement): void
     {
-        if (empty($complement)) {
-            $this->complement = '';
-            return;
+        if (!empty($complement)) {
+            $this->ensureIsValid($complement);
+            $this->complement = substr($complement, 0, 20);
         }
-
-        $this->ensureIsValid($complement);
-        $this->complement = substr($complement, 0, 20);
     }
 
     private function setCity(string $city): void

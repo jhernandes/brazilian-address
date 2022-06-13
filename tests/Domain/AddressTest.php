@@ -45,6 +45,12 @@ class AddressTest extends TestCase
         Address::fromString('Rua Júlio Gonzalez, 100, Barra Funda,,São$$@@! Paulo, SP, 1234');
     }
 
+    public function testCannotCreateValidAddressFromEmptyCity(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        Address::fromString('Rua Júlio Gonzalez, 100, Barra Funda,,, SP, 1234');
+    }
+
     public function testCannotCreateValidAddressFromInvalidState(): void
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -55,5 +61,10 @@ class AddressTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         Address::fromString('Rua Júlio&*#$ Gonzalez, 100, Barra Funda,,São Paulo, SP, 1234');
+    }
+
+    public function testCanCreateValidAddressWithoutNumber(): void
+    {
+        $this->assertInstanceOf(Address::class, Address::fromString('Rua Júlio Gonzalez,, Barra Funda,,São Paulo, SP, 01156060'));
     }
 }
