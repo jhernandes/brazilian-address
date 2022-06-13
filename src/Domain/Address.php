@@ -56,12 +56,12 @@ class Address implements \JsonSerializable
     {
         return [
             'street' => $this->street,
-            'number' => isset($this->number) ?: '',
-            'complement' => isset($this->complement) ?: '',
+            'number' => isset($this->number) ? $this->number : '',
+            'complement' => isset($this->complement) ? $this->complement : '',
             'district' => $this->district,
             'city' => $this->city,
             'state' => $this->state,
-            'cep' => $this->cep,
+            'cep' => $this->cep->formatted(),
         ];
     }
 

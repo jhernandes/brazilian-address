@@ -23,8 +23,14 @@ class AddressTest extends TestCase
 
     public function testCanReturnAsArray(): void
     {
-        $address = Address::fromString('Rua Júlio Gonzalez, 100, Barra Funda,,São Paulo, SP, 01156060');
-        $this->assertIsArray($address->jsonSerialize());
+        $address = Address::fromString('Rua Júlio Gonzalez, 100, Barra Funda, Apto 1051,São Paulo, SP, 01156060');
+        $this->assertSame('Rua Júlio Gonzalez', $address->jsonSerialize()['street']);
+        $this->assertSame('100', $address->jsonSerialize()['number']);
+        $this->assertSame('Barra Funda', $address->jsonSerialize()['district']);
+        $this->assertSame('Apto 1051', $address->jsonSerialize()['complement']);
+        $this->assertSame('São Paulo', $address->jsonSerialize()['city']);
+        $this->assertSame('SP', $address->jsonSerialize()['state']);
+        $this->assertSame('01156-060', $address->jsonSerialize()['cep']);
     }
 
     public function testCannotCreateValidAddressFromInvalidStreet(): void
